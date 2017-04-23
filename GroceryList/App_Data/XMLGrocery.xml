@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Groceries>
+  <Grocery Id="9856c911-b1c3-4dd7-babb-7b809f5ecc6d" Name="Chease" Price="1,25" Unit="grams" CategoryId="3" InBasket="False" />
+</Groceries>

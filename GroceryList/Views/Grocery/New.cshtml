@@ -1,0 +1,62 @@
+﻿@model GroceryList.Models.Grocery
+@using GroceryList.Models
+
+@{
+    ViewBag.Title = "New Grocery";
+}
+@if (ViewBag.MessageError != null)
+{
+    <div style="margin:20px auto;" class="alert alert-warning" role="alert">
+        <p>
+            @ViewBag.MessageError
+        </p>
+    </div>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="form-horizontal">
+        <h4>Create new grocery</h4>
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2">Name</label>
+            <div class="col-md-10">
+                <input type="text" name="Name" class="form-control" required="required" value="@Model.Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Price</label>
+            <div class="col-md-10">
+                <input type="text" name="Price" class="form-control" required="required" value="@Model.Price" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Unit</label>
+            <div class="col-md-10">
+                <input type="text" name="Unit" class="form-control" required="required" value="@Model.Unit" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Category</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.CategoryId, new SelectList(Category.GetCategories(), "Id", "Name"), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="reset" value="Cancel" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<script>
+    (() => {
+        var btnCancel = document.querySelector("input[type=reset]");
+        btnCancel.addEventListener("click", function (evt) { window.location = "/"; });
+    })();
+</script>

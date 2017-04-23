@@ -1,0 +1,63 @@
+﻿@model IEnumerable<GroceryList.Models.Grocery>
+
+@{
+    ViewBag.Title = "Groceries List";
+}
+
+<h4>List items</h4>
+
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-info" role="alert">
+        <h2>
+            No groceries found!
+        </h2>
+        <p>
+            Please, create a new grocery item.
+        </p>
+    </div>
+}
+else
+{
+    @Html.AntiForgeryToken()
+    <table class="grocery-list table table-condensed table-striped">
+        <thead>
+            <tr>
+                <td class="grocery-list-orderby" data-filter="ascending">Name</td>
+                <td class="grocery-list-orderby" data-filter="ascending">Category</td>
+                <td class="grocery-list-orderby" data-filter="ascending">Price</td>
+                <td class="fa fa-shopping-basket"></td>
+                <td>&nbsp;</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Category.ToString()
+                    </td>
+                    <td>
+                        @item.Price.ToString("c")
+                    </td>
+                    <td>
+                        <input type="checkbox" value="true" checked="@item.InBasket" data-id="@item.Id" />
+                    </td>
+                    <td>
+                        <a href="/Grocery/Detail/@{@item.Id}" class="fa fa-info"></a>
+                        <span>&nbsp;</span>
+                        <a href="/Grocery/Edit/@{@item.Id}" class="fa fa-pencil"></a>
+                        <span>&nbsp;</span>
+                        <a href="#" class="fa fa-remove" data-id="@item.Id"></a>
+                    </td>
+                </tr>
+    }
+        </tbody>
+    </table>
+    }
+<div class="text-right">
+    <input type="button" id="new" value="New Item" class="btn btn-success" />
+</div>

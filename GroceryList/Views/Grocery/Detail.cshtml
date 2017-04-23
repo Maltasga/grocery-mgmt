@@ -1,0 +1,33 @@
+﻿@model GroceryList.Models.Grocery
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="col-md-10" style="margin-top:30px;">
+    <div class="col-md-6">
+        <img src="~/images/@{@Model.Category.ToString().ToLower()}.jpg" class="img-rounded" height="200" width="400" />
+    </div>
+    <div class="col-md-4">
+        <h3>@Model.Category.ToString()</h3>
+        <ul class="list-unstyled">
+            <li><b>Product</b>: @Model.Name</li>
+            <li><b>Price</b>: @Model.Price.ToString("c")</li>
+            <li><b>Unit</b>: @Model.Unit</li>
+        </ul>
+    </div>
+    <input type="hidden" name="Id" value="@Model.Id" />
+</div>
+<div class="col-md-10 text-right">
+    <a href="#" class="backtolist">back to list</a>
+    <input type="button" class="btn btn-info" value="Edit this grocery" />
+</div>
+<script>
+    window.addEventListener("load", () => {
+        document.querySelector(".backtolist").addEventListener("click", () => { window.location = "/"; });
+
+        document.querySelector("input[type=button]").addEventListener("click", () => {
+            window.location = "/Grocery/Edit/" + document.querySelector("[name=Id]").value;
+        });
+    });
+</script>
